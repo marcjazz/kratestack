@@ -1,7 +1,8 @@
 {
+  "version": 2,
   "functions": {
     "apps/api/api/*.rs": {
-      "runtime": "vercel-rust@latest"
+      "runtime": "vercel-rust@4.0.9"
     }
   },
   "rewrites": [
