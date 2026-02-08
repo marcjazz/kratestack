@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+dist
+target
+.next
+.env
+.env.*
+!.env.example
+pnpm-lock.yaml

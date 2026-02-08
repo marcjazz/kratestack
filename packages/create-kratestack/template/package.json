@@ -1,0 +1,13 @@
+{
+  "name": "kratestack",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter api dev\" \"pnpm --filter web dev\"",
+    "build": "pnpm --filter \"*\" build",
+    "test": "pnpm --filter \"*\" test",
+    "lint": "pnpm --filter \"*\" lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

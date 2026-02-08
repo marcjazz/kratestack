@@ -1,0 +1,34 @@
+{
+  "name": "create-kratestack",
+  "version": "0.1.0",
+  "description": "CLI to scaffold a new Kratestack project",
+  "type": "module",
+  "bin": {
+    "create-kratestack": "./bin/index.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "template"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --watch",
+    "snapshot": "tsx scripts/snapshot.ts"
+  },
+  "dependencies": {
+    "prompts": "^2.4.2",
+    "fs-extra": "^11.2.0",
+    "kleur": "^4.1.5",
+    "ora": "^8.0.1",
+    "execa": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@types/fs-extra": "^11.0.4",
+    "@types/prompts": "^2.4.9",
+    "typescript": "^5.3.3",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1"
+  }
+}
