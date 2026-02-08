@@ -1,0 +1,19 @@
+{
+  "name": "@kratestack/client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "generate": "cargo run --manifest-path ../../apps/api/Cargo.toml --bin export_openapi > openapi.json && npx openapi-typescript openapi.json -o src/schema.d.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.13.4"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.6.1",
+    "typescript": "^5.7.3"
+  }
+}
