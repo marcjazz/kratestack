@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cargo run",
+    "dev": "cargo run --bin api",
     "build": "cargo build",
     "test": "cargo test",
     "lint": "cargo clippy"

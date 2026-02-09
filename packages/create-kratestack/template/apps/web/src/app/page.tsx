@@ -20,7 +20,7 @@ export default async function Home() {
               <pre>{JSON.stringify(error, null, 2)}</pre>
             </div>
           ) : (
-            <p className={styles.apiMessage}>"{data?.message}"</p>
+            <p className={styles.apiMessage}>{data?.message}</p>
           )}
         </section>
 

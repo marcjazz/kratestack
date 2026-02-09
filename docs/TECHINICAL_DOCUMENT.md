@@ -315,50 +315,80 @@ Use:
 
 # 9. Deployment to Vercel
 
-## 9.1 Backend
+Kratestack uses a two-project deployment strategy on Vercel: one for the API and one for the Web frontend.
 
-Backend must be structured as:
+## 9.1 Backend (API)
 
-```
-apps/api/api/index.rs
-```
+The backend is deployed as a standalone Vercel project pointing to the `apps/api` directory.
 
-or compatible with Vercel’s Rust serverless builder.
-
-Ensure:
-
-- Proper `vercel.json`
-- Correct build output directory
-- Runtime specified
-
-Example minimal `vercel.json`:
+**Configuration:**
+- **Project Root:** `apps/api`
+- **Build Command:** `pnpm build`
+- **Install Command:** `pnpm install`
+- **`vercel.json`:** Located in `apps/api/vercel.json`.
 
 ```json
 {
-  "functions": {
-    "apps/api/api/*.rs": {
-      "runtime": "vercel-rust@latest"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.rs",
+      "use": "vercel-rust@4.0.9"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "api/index.rs"
+    }
+  ]
 }
 ```
 
 ---
 
-## 9.2 Frontend
+## 9.2 Frontend (Web)
 
-Next.js deploys automatically.
+The frontend is deployed as a standalone Vercel project pointing to the `apps/web` directory.
 
-Monorepo root configured as project root.
+**Configuration:**
+- **Project Root:** `apps/web`
+- **Build Command:** `pnpm build`
+- **Install Command:** `pnpm install`
+- **`vercel.json`:** Located in `apps/web/vercel.json`.
 
-Ensure:
-
-- Vercel build command: `pnpm build`
-- Install command: `pnpm install`
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/next"
+    }
+  ]
+}
+```
 
 ---
 
-## 9.3 Production Checklist
+## 9.3 Linking Frontend and Backend
+
+To connect the frontend to the backend in production, you must configure the `NEXT_PUBLIC_API_URL` environment variable in the Frontend (Web) project on Vercel.
+
+1.  **Deploy the Backend (API):** Once deployed, Vercel will provide a production URL (e.g., `https://your-api-project.vercel.app`).
+2.  **Configure the Frontend (Web):**
+    - Go to your Frontend project settings on Vercel.
+    - Navigate to **Environment Variables**.
+    - Add a new variable:
+        - **Key:** `NEXT_PUBLIC_API_URL`
+        - **Value:** The URL of your deployed Backend (e.g., `https://your-api-project.vercel.app`)
+    - Redeploy the Frontend for the changes to take effect.
+
+The `@kratestack/client` package automatically uses this environment variable when running on the server (SSR) to point to the correct backend. On the client side, it defaults to relative paths which are handled by the browser.
+
+---
+
+## 9.4 Production Checklist
 
 Before tagging v0:
 
